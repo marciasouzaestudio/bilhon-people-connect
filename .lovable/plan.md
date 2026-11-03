@@ -1,28 +1,15 @@
-## Problema
+# Liberar o login sem e-mail de confirmação
 
-A aplicação está fazendo chamadas para `https://placeholder.supabase.co` em vez do backend real (`wggbiyatfvighvutrpca.supabase.co`), com erro `Failed to fetch`. Sem conexão ao backend, o login não funciona — e sem login não há como conectar redes sociais.
+O e-mail de confirmação não chegou, então você ficou travada no cadastro. Vou fazer o seguinte:
 
-Evidência (do log de rede):
-```
-GET https://placeholder.supabase.co/rest/v1/system_settings...
-apikey: placeholder-anon-key
-Error: Failed to fetch
-```
+1. Ligar a confirmação automática de conta. Assim, quem se cadastra já entra direto, sem esperar e-mail.
+2. Confirmar a conta que você já criou, para você conseguir entrar com o e-mail e a senha que cadastrou.
+3. Testar o login de ponta a ponta e confirmar que você chega à tela de configuração inicial.
 
-## Causa
+## Observação
+Com isso ligado, o cadastro não confere se o e-mail existe de verdade. Se depois quiser voltar a exigir confirmação, é só configurar um domínio de envio de e-mails e eu desligo a confirmação automática.
 
-O arquivo `.env` já tem os valores corretos (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID` apontando para `wggbiyatfvighvutrpca`), mas foram preenchidos **após** o Vite iniciar — então o bundle servido no preview ainda contém o fallback `placeholder.supabase.co` definido em `src/integrations/supabase/client.ts`.
-
-Os secrets do backend (POSTFORME_API_KEY etc.) já estão configurados, então o proxy `postforme-proxy` funciona — o que falta é apenas o frontend conseguir falar com o backend para autenticar o usuário.
-
-## Correção
-
-Reiniciar o dev server do Vite para que ele releia o `.env` e injete as variáveis corretas no bundle do navegador. Nenhuma alteração de código é necessária.
-
-## Verificação após o restart
-
-1. Abrir o preview e confirmar que `/login` carrega sem erros de rede.
-2. Fazer login / criar conta.
-3. Em **Contas → Conectar Rede**, escolher uma plataforma e confirmar que o popup OAuth do Post for Me abre corretamente e a conta aparece como conectada.
-
-Se após o restart ainda houver erro ao conectar uma rede específica, eu investigo o fluxo de OAuth daquela plataforma (logs do edge function `postforme-proxy` + resposta de `pfm_auth_url`).
+## Detalhes técnicos
+- Ativar auto-confirm na autenticação do Cloud.
+- Marcar o usuário já cadastrado como confirmado.
+- Não muda nenhum código do app.
