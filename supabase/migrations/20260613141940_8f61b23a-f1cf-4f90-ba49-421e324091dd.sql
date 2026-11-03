@@ -1,0 +1,1 @@
+ALTER TABLE public.user_configs DROP COLUMN IF EXISTS blotato_api_key;

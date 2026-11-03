@@ -1,0 +1,992 @@
+/* GERADO por apply-bilhon-ds (make-bosweb-layer). Classes reais do app bilhon-os
+   (card-premium, text-h2/h3, text-stat-number, eyebrow, text-gradient-bilhon, btn-bilhon)
+   com tamanhos/espaçamentos literais, tokens remapeados p/ --bl-*. Envolva o app em .bos-scope. */
+
+/* bos-web layer — tokens de marca mapeados para --bl-* (sem colidir com shadcn) */
+:where(:root, .bos-scope) {
+  --bos-accent: var(--bl-accent);
+  --bos-accent-light: var(--bl-accent);
+  --bos-accent-fg: var(--bl-text-primary);
+  --bos-ink: var(--bl-text-primary);
+  --bos-body: var(--bl-text-primary);
+  --bos-muted: var(--bl-text-dim);
+  --bos-cobre: var(--bl-text-secondary);
+  --bos-hairline: var(--bl-border);
+  --bos-paper: var(--bl-bg-primary);
+  --bos-paper-2: var(--bl-bg-surface);
+  --bos-ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --bos-ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --bos-shadow-card: 0 1px 0 color-mix(in srgb, var(--bl-text-primary) 2%, transparent) inset, 0 12px 40px -16px color-mix(in srgb, var(--bl-text-primary) 12%, transparent);
+  --bos-shadow-card-hover: 0 1px 0 color-mix(in srgb, var(--bl-accent) 6%, transparent) inset, 0 24px 60px -16px color-mix(in srgb, var(--bl-text-primary) 16%, transparent);
+  --font-geist-sans: var(--bl-font-sans);
+  --font-geist-mono: var(--bl-font-mono);
+  --font-inter: var(--bl-font-sans);
+  --font-jetbrains: var(--bl-font-mono);
+  /* FIX P1 — tokens antes pendurados (sem :root): radius + paleta categórica */
+  --radius: var(--bl-radius, 0.625rem);
+  --chart-1: var(--bl-chart-1, #22d3ee);
+  --chart-2: var(--bl-chart-2, #a78bfa);
+  --chart-3: var(--bl-chart-3, #4ade80);
+  --chart-4: var(--bl-chart-4, #fb923c);
+  --chart-5: var(--bl-chart-5, #f472b6);
+  --chart-6: var(--bl-chart-6, #60a5fa);
+  --chart-7: var(--bl-chart-7, #fbbf24);
+  --chart-8: var(--bl-chart-8, #94a3b8);
+}
+
+/* ── componentes do globals.css (btn-bilhon, .card, .badge, .nav-item, etc.) ── */
+/* (removido `@import "tailwindcss";` — o app-alvo já provê o Tailwind; um @import no meio do arquivo quebra o Vite/PostCSS: "@import must precede all other statements") */
+
+
+
+/* ─── Design Tokens ─────────────────────────────────────── */
+
+
+/* ─── Base ─────────────────────────────────────────────── */
+html {
+  color-scheme: light dark;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bl-bg-primary);
+  color: var(--bl-text-primary);
+  font-family: var(--bl-font-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bl-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bl-text-dim); }
+
+/* ─── Glass Effect ─────────────────────────────────────── */
+.glass {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--bl-bg-surface) 85%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bl-border) 50%, transparent);
+}
+
+.glass-strong {
+  backdrop-filter: blur(24px);
+  background: color-mix(in srgb, var(--bl-bg-surface) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bl-border) 65%, transparent);
+}
+
+.surface-0 { background: var(--bl-bg-0); }
+.surface-1 { background: var(--bl-bg-surface); }
+.surface-2 { background: var(--bl-bg-elevated); }
+.surface-3 { background: var(--bl-bg-surface-alt); }
+
+/* ─── Card Variants ────────────────────────────────────── */
+.card {
+  background: color-mix(in srgb, var(--bl-bg-surface) 96%, transparent);
+  border: 1px solid var(--bl-border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--bl-text-primary) 4%, transparent);
+  overflow: hidden;
+}
+
+.card-hover {
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.card-hover:hover {
+  border-color: color-mix(in srgb, var(--bl-accent) 30%, var(--bl-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bl-accent) 10%, transparent), 0 8px 20px color-mix(in srgb, var(--bl-text-primary) 8%, transparent);
+  transform: translateY(-1px);
+}
+
+/* ─── Badge ────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+/* Count badges used in nav/header notifications */
+.count-badge {
+  background: color-mix(in srgb, var(--bl-accent) 14%, transparent);
+  color: var(--bl-accent);
+  border: 1px solid color-mix(in srgb, var(--bl-accent) 30%, transparent);
+}
+
+.count-badge-info {
+  background: color-mix(in srgb, var(--bl-info) 14%, transparent);
+  color: var(--bl-info);
+  border: 1px solid color-mix(in srgb, var(--bl-info) 30%, transparent);
+}
+
+.badge-success {
+  background: color-mix(in srgb, var(--bl-success) 16%, transparent);
+  color: var(--bl-success);
+  border: 1px solid color-mix(in srgb, var(--bl-success) 24%, transparent);
+}
+.badge-warning {
+  background: color-mix(in srgb, var(--bl-warning) 16%, transparent);
+  color: var(--bl-warning);
+  border: 1px solid color-mix(in srgb, var(--bl-warning) 24%, transparent);
+}
+.badge-error {
+  background: color-mix(in srgb, var(--bl-danger) 16%, transparent);
+  color: var(--bl-danger);
+  border: 1px solid color-mix(in srgb, var(--bl-danger) 24%, transparent);
+}
+.badge-info {
+  background: color-mix(in srgb, var(--bl-info) 16%, transparent);
+  color: var(--bl-info);
+  border: 1px solid color-mix(in srgb, var(--bl-info) 24%, transparent);
+}
+.badge-neutral {
+  background: color-mix(in srgb, var(--bl-bg-surface) 85%, transparent);
+  color: var(--bl-text-dim);
+  border: 1px solid color-mix(in srgb, var(--bl-border) 80%, transparent);
+}
+
+/* ─── Stat Card Glow ───────────────────────────────────── */
+.stat-glow {
+  position: relative;
+  overflow: hidden;
+}
+.stat-glow::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bl-accent) 6%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Table ────────────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--bl-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid color-mix(in srgb, var(--bl-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bl-bg-surface) 88%, transparent);
+}
+.data-table td {
+  padding: 9px 12px;
+  font-size: 0.8125rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bl-border) 55%, transparent);
+}
+.data-table tbody tr {
+  transition: background 0.15s;
+}
+.data-table tbody tr:hover {
+  background: color-mix(in srgb, var(--bl-bg-surface) 72%, transparent);
+}
+
+/* ─── Button Variants ──────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.1;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 32px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background-color: var(--bl-text-primary);
+  color: var(--bl-bg-primary);
+  font-family: var(--bl-font-mono), var(--bl-font-mono), "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #161719;
+  border-color: #2a2b2d;
+  background-image: linear-gradient(240deg, #bddeff 27%, #fffed9 59%, #ff7f39);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--bl-text-primary);
+  border: 1px solid var(--bl-border);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bl-bg-surface-alt);
+}
+.btn-success {
+  background: color-mix(in srgb, var(--bl-success) 15%, transparent);
+  color: var(--bl-success);
+  border: 1px solid color-mix(in srgb, var(--bl-success) 30%, transparent);
+}
+.btn-success:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bl-success) 25%, transparent);
+}
+.btn-destructive {
+  background: color-mix(in srgb, var(--bl-danger) 15%, transparent);
+  color: var(--bl-danger);
+  border: 1px solid color-mix(in srgb, var(--bl-danger) 30%, transparent);
+}
+.btn-destructive:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bl-danger) 25%, transparent);
+}
+.btn-sm {
+  min-height: 26px;
+  padding: 3px 9px;
+  font-size: 0.6875rem;
+}
+
+/* ─── Form Controls ───────────────────────────────────── */
+/* REMOVIDO (apply-bilhon-ds): o bloco global `input/select/textarea {}` do globals.css
+   vazava p/ o app-alvo e clobbava o padding/ícone dos inputs shadcn (ex.: pl-10 do ícone
+   de e-mail/senha no login → sobreposição). Os inputs shadcn já são recoloridos pelo
+   token-bridge; deixá-los com o próprio estilo. Ver memória bosweb-leaks-element-rules. */
+
+/* ─── Focus visible (teclado) — WCAG 2.4.7 ─────────────── */
+:where(a, button, [role="button"], [role="option"], .btn, .nav-item, .tab, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--bl-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ─── Nav Rail ─────────────────────────────────────────── */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 4px;
+  border-radius: 10px;
+  color: var(--bl-text-dim);
+  font-size: 0.65rem;
+  line-height: 1;
+  transition: all 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-item:hover {
+  color: var(--bl-text-primary);
+  background: color-mix(in srgb, var(--bl-bg-elevated) 80%, transparent);
+}
+.nav-item.active {
+  color: var(--bl-accent);
+  background: color-mix(in srgb, var(--bl-accent) 12%, var(--bl-bg-elevated));
+  border: 1px solid color-mix(in srgb, var(--bl-accent) 22%, transparent);
+}
+
+.panel {
+  background: color-mix(in srgb, var(--bl-bg-surface) 96%, transparent);
+  border: 1px solid var(--bl-border);
+  border-radius: var(--radius);
+}
+
+.panel-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--bl-border) 75%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-body {
+  padding: 16px;
+}
+
+.stat-tile {
+  background: color-mix(in srgb, var(--bl-bg-surface) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bl-border) 70%, transparent);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bl-text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.transition-smooth {
+  transition: all 0.2s ease-out;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--bl-accent) 20%, transparent);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ─── Animations ───────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in {
+  animation: slide-in-right 0.25s ease-out;
+}
+
+@keyframes shimmer-bw {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bl-bg-surface-alt) 25%,
+    color-mix(in srgb, var(--bl-bg-surface-alt) 60%, var(--bl-text-primary)) 50%,
+    var(--bl-bg-surface-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-bw 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.pulse-dot {
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-count {
+  animation: count-up 0.4s ease-out;
+}
+
+/* ─── Tab Component ────────────────────────────────────── */
+.tab {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--bl-text-dim);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.tab:hover {
+  color: var(--bl-text-primary);
+}
+.tab.active {
+  color: var(--bl-accent);
+  border-bottom-color: var(--bl-accent);
+}
+
+/* ─── Mobile Nav ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-rail { display: none !important; }
+  .mobile-nav { display: flex !important; }
+  .main-content { margin-left: 0 !important; }
+
+  /* Horizontal scroll for tables on mobile */
+  .data-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Tighter card padding on mobile */
+  .card { border-radius: 8px; }
+
+  /* Stack stat cards at full width */
+  h1 { font-size: 1.125rem; }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * Sistema multi-tema (portado do Mission Control).
+ * next-themes (attribute="class") aplica o id do tema como classe no <html>.
+ * `light` = :root (acima) · `dark` = .dark / paleta Void (acima).
+ * Cada bloco abaixo redefine OS MESMOS tokens do DS com as cores do tema,
+ * então o app inteiro (já tokenizado) "só funciona".
+ * Cores HEX convertidas das paletas HSL originais do MC (src/app/globals.css).
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ── Sun — paleta canônica BilhonOS Web (light): warm off-white + Bilhon orange ── */
+
+
+/* ── Moon — paleta canônica BilhonOS Web (dark): flat near-black + Bilhon orange ── */
+
+
+/* ── BOS — identidade lp.bilhon / ds.bilhon.space/ds-lp-bilhon: near-black + cobre/creme ── */
+
+
+/* ── Brand logo: horizontal Bilhon, adapta por tema (branca nos escuros, preta nos claros) ── */
+.brand-logo-light { display: none; }
+.sun .brand-logo-light,
+.light .brand-logo-light,
+.paper .brand-logo-light { display: inline-block; }
+.sun .brand-logo-dark,
+.light .brand-logo-dark,
+.paper .brand-logo-dark { display: none; }
+
+/* ── Efeitos ambientais (orbs + hairline) — DS lp.bilhon ── */
+.orb-orange,
+.orb-cobre { position: absolute; pointer-events: none; border-radius: 9999px; z-index: 0; }
+.orb-orange { background: radial-gradient(closest-side, rgba(232,86,0,.18), transparent 70%); filter: blur(120px); }
+.orb-cobre  { background: radial-gradient(closest-side, rgba(201,183,156,.10), transparent 70%); filter: blur(140px); }
+.hairline-divider { height: 1px; width: 100%; border: 0; background: linear-gradient(90deg, transparent, rgba(201,183,156,.4) 50%, transparent); }
+
+/* ── Botão canônico Bilhon (brandbook lp.bilhon.com · .btn-bilhon) ────────
+   Sólido theme-aware: usa foreground↔background = contraste máximo em QUALQUER
+   tema (no dark vira branco/escuro = idêntico ao brandbook; no light, escuro/claro).
+   HOVER = o efeito-assinatura: fundo escurece e o texto vira o degradê Bilhon. */
+.btn-bilhon,
+.btn-accent {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 56px; padding: 0 2.5rem; border-radius: 5px;
+  background-color: var(--bl-text-primary);
+  color: var(--bl-bg-primary);
+  font-family: var(--bl-font-mono), var(--bl-font-mono), "JetBrains Mono", ui-monospace, "Geist Mono", monospace;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.03em; white-space: nowrap; cursor: pointer;
+  border: 1px solid transparent;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--bl-text-primary) 12%, transparent);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.btn-bilhon:hover,
+.btn-accent:hover {
+  background-color: #161719; border-color: #2a2b2d;
+  background-image: linear-gradient(240deg, #bddeff 27%, #fffed9 59%, #ff7f39);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  box-shadow: 0 0 60px hsl(0 0% 100% / 0.12);
+}
+.btn-bilhon:focus-visible,
+.btn-accent:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bl-bg-primary), 0 0 0 4px color-mix(in srgb, var(--bl-text-primary) 55%, transparent);
+}
+.btn-bilhon:disabled, .btn-accent:disabled { opacity: 0.5; pointer-events: none; }
+.btn-bilhon-sm, .btn-accent-sm { height: 40px; padding: 0 1.25rem; font-size: 13px; }
+.btn-bilhon-lg { height: 60px; padding: 0 2.75rem; font-size: 15px; }
+
+/* outline — hairline; hover sutil (sem degradê) */
+.btn-bilhon-outline,
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 56px; padding: 0 2.5rem; border-radius: 5px;
+  background-color: transparent; color: var(--bl-text-primary);
+  font-family: var(--bl-font-mono), var(--bl-font-mono), "JetBrains Mono", ui-monospace, monospace;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.03em; white-space: nowrap; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--bl-text-primary) 18%, transparent);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-bilhon-outline:hover,
+.btn-outline:hover {
+  border-color: color-mix(in srgb, var(--bl-text-primary) 38%, transparent);
+  background-color: color-mix(in srgb, var(--bl-text-primary) 4%, transparent);
+}
+.btn-bilhon-outline:disabled, .btn-outline:disabled { opacity: 0.5; pointer-events: none; }
+
+/* ghost — sem fundo/borda, mono */
+.btn-bilhon-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 56px; padding: 0 1.25rem; border-radius: 5px;
+  background: transparent; color: var(--bl-text-dim);
+  font-family: var(--bl-font-mono), var(--bl-font-mono), "JetBrains Mono", ui-monospace, monospace;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.03em; cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-bilhon-ghost:hover { color: var(--bl-text-primary); background: color-mix(in srgb, var(--bl-text-primary) 4%, transparent); }
+
+/* ─── Fundos decorados por tema (grid/gradiente, opcionais) ─────────────── */
+.void-bg {
+  background-image:
+    radial-gradient(ellipse 60% 30% at 50% 0%, color-mix(in srgb, var(--bl-accent) 4%, transparent), transparent),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--bl-border) 30%, transparent) 0px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--bl-border) 30%, transparent) 0px, transparent 1px, transparent 40px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+.synthwave-bg {
+  background-image:
+    radial-gradient(ellipse 60% 30% at 50% 0%, color-mix(in srgb, var(--bl-accent) 8%, transparent), transparent),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--bl-border) 35%, transparent) 0px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--bl-border) 35%, transparent) 0px, transparent 1px, transparent 40px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+.terminal-bg {
+  background-image:
+    radial-gradient(ellipse 50% 25% at 50% 0%, color-mix(in srgb, var(--bl-accent) 5%, transparent), transparent),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--bl-accent) 4%, transparent) 0px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 19px, color-mix(in srgb, var(--bl-accent) 3%, transparent) 20px);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+}
+
+/* ── card-premium (Bilhon Social · light-first) ── */
+.card-premium {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  box-shadow:
+    0 1px 2px rgba(15, 15, 20, 0.04),
+    0 8px 24px -12px rgba(192, 38, 211, 0.10);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 200ms ease,
+              box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.card-premium:hover {
+  transform: translateY(-2px);
+  border-color: rgba(192, 38, 211, 0.35);
+  box-shadow:
+    0 1px 2px rgba(15, 15, 20, 0.04),
+    0 18px 40px -14px rgba(192, 38, 211, 0.22);
+}
+
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  75%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.bos-scope .border-hairline {
+  border-color: var(--bos-hairline);
+}
+
+
+.bos-scope .bg-ink {
+  background-color: var(--bos-ink);
+}
+
+
+.bos-scope .bg-ink\/\[0\.02\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 2%, transparent);
+}
+
+
+.bos-scope .bg-ink\/\[0\.03\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 3%, transparent);
+}
+
+
+.bos-scope .bg-ink\/\[0\.04\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 4%, transparent);
+}
+
+
+.bos-scope .bg-ink\/\[0\.05\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 5%, transparent);
+}
+
+
+.bos-scope .bg-ink\/\[0\.06\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 6%, transparent);
+}
+
+
+.bos-scope .bg-ink\/\[0\.14\] {
+  background-color: color-mix(in srgb, var(--bos-ink) 14%, transparent);
+}
+
+
+.bos-scope .bg-paper {
+  background-color: var(--bos-paper);
+}
+
+
+.bos-scope .bg-paper-2 {
+  background-color: var(--bos-paper-2);
+}
+
+
+.bos-scope .bg-paper-2\/60 {
+  background-color: color-mix(in srgb, var(--bos-paper-2) 60%, transparent);
+}
+
+
+.bos-scope .bg-paper\/70 {
+  background-color: color-mix(in srgb, var(--bos-paper) 70%, transparent);
+}
+
+
+.bos-scope .text-body {
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+
+.bos-scope .text-bodyLg {
+  font-size: 17px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+
+.bos-scope .text-bodySm {
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+
+.bos-scope .text-h2Sm {
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.6px;
+  font-weight: 300;
+}
+
+
+.bos-scope .text-h3 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+
+.bos-scope .text-stat-label {
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 1.8px;
+  font-weight: 500;
+}
+
+
+.bos-scope .text-stat-number {
+  font-size: 38px;
+  line-height: 42px;
+  font-weight: 300;
+}
+
+
+.bos-scope .text-accent {
+  color: var(--bos-accent);
+}
+
+
+.bos-scope .text-accent-foreground {
+  color: var(--bos-accent-fg);
+}
+
+
+.bos-scope .text-body {
+  color: var(--bos-body);
+}
+
+
+.bos-scope .text-cobre {
+  color: var(--bos-cobre);
+}
+
+
+.bos-scope .text-ink {
+  color: var(--bos-ink);
+}
+
+
+.bos-scope .text-muted {
+  color: var(--bos-muted);
+}
+
+
+.bos-scope .text-muted\/60 {
+  color: color-mix(in srgb, var(--bos-muted) 60%, transparent);
+}
+
+
+.bos-scope .text-muted\/70 {
+  color: color-mix(in srgb, var(--bos-muted) 70%, transparent);
+}
+
+
+.bos-scope .text-muted\/80 {
+  color: color-mix(in srgb, var(--bos-muted) 80%, transparent);
+}
+
+
+.bos-scope .shadow-card-soft {
+  --tw-shadow: 0 1px 0 color-mix(in srgb, var(--bos-ink) 2%, transparent) inset, 0 12px 40px -16px color-mix(in srgb, var(--bos-ink) 12%, transparent);
+  --tw-shadow-colored: inset 0 1px 0 var(--tw-shadow-color), 0 12px 40px -16px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+
+@keyframes exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0) scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1)) rotate(var(--tw-exit-rotate, 0));
+  }
+}
+
+
+.bos-scope .eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bos-accent);
+}
+
+
+.bos-scope .eyebrow-muted {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bos-muted);
+}
+
+
+.bos-scope .text-gradient-bilhon,
+.text-gradient-bilhon {
+  background-image: linear-gradient(120deg, #F97316 0%, #EA580C 45%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+
+.bos-scope .nums-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+
+.bos-scope .file\:bg-ink\/\[0\.06\]::file-selector-button {
+  background-color: color-mix(in srgb, var(--bos-ink) 6%, transparent);
+}
+
+
+.bos-scope .file\:text-bodySm::file-selector-button {
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+
+.bos-scope .file\:text-ink::file-selector-button {
+  color: var(--bos-ink);
+}
+
+
+.bos-scope .placeholder\:text-muted\/70::-moz-placeholder {
+  color: color-mix(in srgb, var(--bos-muted) 70%, transparent);
+}
+
+
+.bos-scope .placeholder\:text-muted\/70::placeholder {
+  color: color-mix(in srgb, var(--bos-muted) 70%, transparent);
+}
+
+
+@keyframes shimmer {
+  100% {
+    content: var(--tw-content);
+    transform: translateX(100%);
+  }
+}
+
+
+.bos-scope .hover\:bg-ink\/\[0\.02\]:hover {
+  background-color: color-mix(in srgb, var(--bos-ink) 2%, transparent);
+}
+
+
+.bos-scope .hover\:bg-ink\/\[0\.03\]:hover {
+  background-color: color-mix(in srgb, var(--bos-ink) 3%, transparent);
+}
+
+
+.bos-scope .hover\:bg-ink\/\[0\.04\]:hover {
+  background-color: color-mix(in srgb, var(--bos-ink) 4%, transparent);
+}
+
+
+.bos-scope .hover\:bg-ink\/\[0\.06\]:hover {
+  background-color: color-mix(in srgb, var(--bos-ink) 6%, transparent);
+}
+
+
+.bos-scope .hover\:text-body:hover {
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+
+.bos-scope .hover\:text-accent:hover {
+  color: var(--bos-accent);
+}
+
+
+.bos-scope .hover\:text-accent\/80:hover {
+  color: color-mix(in srgb, var(--bos-accent) 80%, transparent);
+}
+
+
+.bos-scope .hover\:text-body:hover {
+  color: var(--bos-body);
+}
+
+
+.bos-scope .hover\:text-ink:hover {
+  color: var(--bos-ink);
+}
+
+
+.bos-scope .hover\:file\:bg-ink\/\[0\.1\]::file-selector-button:hover {
+  background-color: color-mix(in srgb, var(--bos-ink) 10%, transparent);
+}
+
+
+.bos-scope :is(.group:hover .group-hover\:text-body) {
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+
+.bos-scope :is(.group:hover .group-hover\:text-accent) {
+  color: var(--bos-accent);
+}
+
+
+.bos-scope :is(.group:hover .group-hover\:text-body) {
+  color: var(--bos-body);
+}
+
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+@media (min-width: 768px) {
+.bos-scope .md\:text-h2 {
+    font-size: 46px;
+    line-height: 52px;
+    letter-spacing: -1px;
+    font-weight: 300;
+  }
+
+
+  .bos-scope .md\:text-h2Sm {
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -0.6px;
+    font-weight: 300;
+  }
+}
+
+/* ── Bilhon Light Violeta override — cards planos, sem glass/glow ── */
+.card-premium,
+.card-premium:hover,
+.glass,
+.glass-strong {
+  background: hsl(var(--card)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.04), 0 4px 12px -2px rgba(16, 24, 40, 0.06) !important;
+  border-radius: var(--radius) !important;
+  color: hsl(var(--card-foreground)) !important;
+}
+.glow-primary,
+[class*="glow"] {
+  box-shadow: none !important;
+  filter: none !important;
+}
+.text-gradient-bilhon {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary)) !important;
+}

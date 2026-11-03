@@ -1,0 +1,1 @@
+DELETE FROM user_configs WHERE user_id IN (SELECT user_id FROM user_configs);

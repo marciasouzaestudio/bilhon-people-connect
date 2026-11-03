@@ -1,0 +1,1 @@
+ALTER TABLE public.user_configs ALTER COLUMN brand_name SET DEFAULT 'Minha Empresa';

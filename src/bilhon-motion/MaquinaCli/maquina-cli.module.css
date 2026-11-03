@@ -1,0 +1,745 @@
+/* GERADO por apply-bilhon-ds (make-motion-layer) — cópia de
+   C:/Users/tech/bilhonos/bilhon-os/src/bos-web/components/motion/MaquinaCli/maquina-cli.module.css
+   (remap de cor token → --bl-*; signature colors verbatim). NÃO editar à mão. */
+
+/* =============================================================================
+ * Maquina CLI — animacao "A Maquina Bilhon · 5 pecas" (terminal CLI).
+ * Portado de:
+ *   - public/bilhon/maquina/styles.css  (alma visual + keyframes + overrides)
+ *   - public/bilhon/maquina/main.css    (geometria base Webflow — ~25 seletores)
+ *
+ * CSS vars Webflow (--_color-scheme---*) SUBSTITUIDAS pelos literais resolvidos.
+ * Classes bilhon-x, maquina-5pecas, Webflow ficam GLOBAIS (:global) dentro do
+ * module para o hook (useMaquinaEngine) encontra-las por querySelector.
+ * O unico hook de escopo estavel e .maquinaRoot (a classe gerada pelo module).
+ *
+ * Trilhas horizontais (h-moving-line / inner-trackline / outter-trackline /
+ * end-line) foram DESCARTADAS — estavam display:none no override Bilhon.
+ * ============================================================================= */
+
+/* Wrapper estavel (unica classe scoped do module). */
+.maquinaRoot {
+  /* Geist Mono garantida por outra parte do app — cascata resiliente. */
+  --maquina-mono: var(--bl-font-mono), var(--bl-font-mono), "Geist Mono",
+    "JetBrains Mono", ui-monospace, monospace;
+  width: 100%;
+  margin: 0 auto;
+  color: #fff;
+}
+
+/* ===========================================================================
+ * TOKENS DE COR SEMANTICOS (escopo .maquina-5pecas)
+ * =========================================================================== */
+.maquinaRoot :global(.maquina-5pecas) {
+  --bilhon-accent: #e85600;
+  --bilhon-accent-strong: #c599ff;
+  --bilhon-accent-hero: #ff88be;
+  --bilhon-muted: #9ca3af;
+  --bilhon-warning: #ff88be;
+  --bilhon-danger: #ff88be;
+  --bilhon-success: #a2f865;
+  --bilhon-cyan: #36cdff;
+  margin-bottom: 0;
+}
+
+.maquinaRoot :global(.sr-only) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===========================================================================
+ * GEOMETRIA BASE (de main.css) — vars Webflow resolvidas para literais.
+ * Apenas os seletores usados pela maquina. Tudo escopado em .maquinaRoot.
+ * =========================================================================== */
+.maquinaRoot :global(.w-layout-vflex) {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.maquinaRoot :global(.hero-animation) {
+  z-index: 0;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.animation-wrapper) {
+  width: 100%;
+  height: auto;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+}
+.maquinaRoot :global(.top-animation) {
+  z-index: 50;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.track-line) {
+  z-index: 9;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.icon-hero) {
+  z-index: 99;
+  width: 65px;
+  height: 65px;
+  padding: 0.5rem;
+  border: 2px solid #38393a; /* neutral--400 */
+  border-radius: 15px; /* corner-radius xs */
+  background-color: #0e0f11; /* neutral--100 */
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.icon-hero-01) {
+  width: 35px;
+}
+.maquinaRoot :global(.icon-hero-outlined) {
+  z-index: 99;
+  background-image: linear-gradient(151deg, #a2d1ff, #fc904e);
+  border-radius: 17px;
+  padding: 2px;
+  position: absolute;
+}
+.maquinaRoot :global(.v-line) {
+  background-color: #fff0; /* neutral--transparent */
+  width: 2px;
+  height: 35px;
+}
+.maquinaRoot :global(.v-line.long) {
+  z-index: 0;
+  background-color: #1f2020; /* neutral--300 */
+  height: 210px;
+  position: absolute;
+  inset: auto auto 0%;
+}
+.maquinaRoot :global(.middle-animation) {
+  z-index: 45;
+  justify-content: center;
+  align-items: center;
+  width: 389px;
+  height: 175px;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.bottom-animation) {
+  z-index: 50;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.maquinaRoot :global(.terminal-wrapper) {
+  background-color: #1f2020; /* neutral--300 */
+  border: 1px solid #38393a85;
+  border-radius: 15px;
+  width: 600px;
+}
+.maquinaRoot :global(.terminal-wrapper.back) {
+  opacity: 0.3;
+  width: 300px;
+  min-width: 200px;
+  margin-top: -10.5rem;
+  margin-left: -13rem;
+}
+.maquinaRoot :global(.terminal-wrapper.back.left) {
+  margin-left: 0;
+  margin-right: -13rem;
+}
+.maquinaRoot :global(.terminal-wrapper.center) {
+  z-index: 99;
+  position: relative;
+}
+.maquinaRoot :global(.top-bar-terminal) {
+  padding: 0.5rem 1rem; /* padding-xxs padding-xs */
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.maquinaRoot :global(.left-element) {
+  gap: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+}
+.maquinaRoot :global(.tab-address) {
+  padding-right: 1rem;
+}
+.maquinaRoot :global(.icon-wrapper) {
+  opacity: 0.5;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.maquinaRoot :global(.fullscreen-icon) {
+  width: 13px;
+  height: 13px;
+  transform: rotate(90deg);
+}
+.maquinaRoot :global(.hero-terminal-wrapper) {
+  height: 150px;
+  padding: 1.5rem; /* padding-xs-half */
+  gap: 1rem;
+  background-color: #0e0f11; /* neutral--100 */
+  border-radius: 0 0 15px 15px;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+.maquinaRoot :global(.hero-code-wrapper) {
+  gap: 1rem;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+.maquinaRoot :global(.circle-path) {
+  border-radius: 99px; /* corner-radius rounded */
+  opacity: 0.78;
+  background-color: #9c3c3c;
+  width: 14px;
+  height: 14px;
+}
+.maquinaRoot :global(.circle-path._02) {
+  background-color: #b8a437;
+}
+.maquinaRoot :global(.circle-path._02.small) {
+  height: 10px;
+}
+.maquinaRoot :global(.circle-path._03) {
+  background-color: #619c3c;
+}
+.maquinaRoot :global(.circle-path.small) {
+  width: 10px;
+  height: 10px;
+}
+
+/* moving-line: gradiente base + cor por classe (de main.css). */
+.maquinaRoot :global(.moving-line) {
+  background-image: linear-gradient(180deg, #1f2020, #df4a63); /* neutral-300 -> error-state */
+  width: 2px;
+  height: 20px;
+  position: absolute;
+  inset: auto auto 0%;
+}
+.maquinaRoot :global(.moving-line.green) {
+  background-image: linear-gradient(180deg, #1f2020, #a2f865); /* accent-02 */
+}
+.maquinaRoot :global(.moving-line.blue) {
+  background-image: linear-gradient(180deg, #1f2020, #36cdff); /* accent-03 */
+}
+.maquinaRoot :global(.moving-line.purple) {
+  background-image: linear-gradient(180deg, #1f2020, #c599ff); /* accent-06 */
+}
+.maquinaRoot :global(.moving-line.white) {
+  background-image: linear-gradient(180deg, #1f2020, #c7c7c7); /* neutral-600 */
+}
+
+/* Text styles (de main.css). font-family secondary -> Geist Mono. */
+.maquinaRoot :global(.code-tab) {
+  font-family: var(--maquina-mono);
+  font-size: 11.5px;
+}
+.maquinaRoot :global(.code-sample) {
+  font-family: var(--maquina-mono);
+  color: #8d8d8d; /* neutral-500 */
+  text-align: center;
+  letter-spacing: 0.03em; /* large */
+  background-color: #3898ec00;
+  font-size: 12px;
+}
+.maquinaRoot :global(.code-sample.left-aligned) {
+  text-align: left;
+}
+.maquinaRoot :global(.left-aligned) {
+  text-align: left;
+}
+.maquinaRoot :global(.code-snippet) {
+  font-family: var(--maquina-mono);
+  color: #c7c7c7; /* neutral-600 */
+  font-size: 13.5px; /* xxs-mono */
+  text-align: left;
+  letter-spacing: 0.03em;
+}
+.maquinaRoot :global(.command-result) {
+  font-family: var(--maquina-mono);
+  color: #8d8d8d;
+  font-size: 13.5px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  background-color: #3898ec00;
+}
+.maquinaRoot :global(.xs-mono-text) {
+  font-family: var(--maquina-mono);
+  color: #8d8d8d;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  background-color: #3898ec00;
+}
+.maquinaRoot :global(.xxs-mono-text) {
+  font-family: var(--maquina-mono);
+  font-size: 13.5px;
+}
+.maquinaRoot :global(.text-span) {
+  color: #ace286; /* success-state — o "$" */
+}
+.maquinaRoot :global(.accent-01) {
+  color: #e85600;
+}
+.maquinaRoot :global(.accent-06) {
+  color: #c599ff;
+}
+.maquinaRoot :global(.grey-500) {
+  color: #8d8d8d;
+}
+
+/* ===========================================================================
+ * STYLES.CSS — alma visual (keyframes, word-swap, reveal, layout override).
+ * Mantido fiel; vars --bilhon-* vem do bloco de tokens acima.
+ * =========================================================================== */
+.maquinaRoot :global([data-bilhon-tab]),
+.maquinaRoot :global([data-bilhon-code]) {
+  transition: opacity 280ms ease-out, transform 280ms ease-out;
+  will-change: opacity, transform;
+}
+.maquinaRoot :global([data-bilhon-tab].is-fading),
+.maquinaRoot :global([data-bilhon-code].is-fading) {
+  opacity: 0;
+  transform: translateY(-2px);
+}
+
+/* Reveal do bloco (a classe pedida bilhon-cli-revealed). */
+.maquinaRoot :global(.bilhon-cli-hidden) {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.maquinaRoot :global(.bilhon-cli-revealed) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+}
+
+/* Terminal wrapper: altura fixa + auto-scroll escondido. */
+.maquinaRoot :global(.maquina-5pecas) :global(.hero-terminal-wrapper) {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  height: 175px;
+  min-height: 175px;
+  max-height: 175px;
+}
+.maquinaRoot
+  :global(.maquina-5pecas)
+  :global(.hero-terminal-wrapper)::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Cursor piscando. */
+.maquinaRoot :global(.bilhon-cursor) {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  margin-left: 2px;
+  animation: bilhon-blink 900ms steps(2, end) infinite;
+}
+@keyframes bilhon-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Layout do code-wrapper interno. */
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]),
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.code-sample),
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.code-snippet),
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.command-result),
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.xs-mono-text) {
+  text-align: left;
+  width: auto;
+  display: block;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) > p {
+  margin-bottom: 0.45em;
+}
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) > p:last-child {
+  margin-bottom: 0;
+}
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) > p > span {
+  display: inline;
+}
+.maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) > p > br + span {
+  display: inline-block;
+  margin-top: 0.25em;
+}
+
+/* Markers semanticos. */
+.maquinaRoot :global(.bilhon-marker-active) { color: var(--bilhon-success); }
+.maquinaRoot :global(.bilhon-marker-ok) { color: var(--bilhon-success); }
+.maquinaRoot :global(.bilhon-marker-warn) { color: var(--bilhon-warning); }
+.maquinaRoot :global(.bilhon-marker-danger) { color: var(--bilhon-danger); }
+.maquinaRoot :global(.bilhon-marker-section) { color: inherit; font-weight: 500; }
+.maquinaRoot :global(.bilhon-marker-sub) { color: var(--bilhon-muted); }
+.maquinaRoot :global(.bilhon-marker-progress) { color: var(--bilhon-accent); letter-spacing: -1px; }
+.maquinaRoot :global(.bilhon-marker-spark) { color: var(--bilhon-muted); letter-spacing: 2px; }
+.maquinaRoot :global(.bilhon-accent) { color: var(--bilhon-accent); }
+.maquinaRoot :global(.bilhon-accent-strong) { color: var(--bilhon-accent-strong); font-weight: 500; }
+.maquinaRoot :global(.bilhon-status-critical) { color: var(--bilhon-accent-hero); font-weight: 500; }
+
+/* Word-swap (palavras de nicho ciclando ate selecionar). */
+.maquinaRoot :global(.bilhon-word-swap) {
+  display: inline-block;
+  min-width: 14ch;
+  position: relative;
+  vertical-align: baseline;
+  text-align: left;
+}
+.maquinaRoot :global(.bilhon-word-swap__current) {
+  display: inline-block;
+  transition: opacity 120ms ease-out;
+}
+.maquinaRoot :global(.bilhon-word-swap__current.is-leaving) { opacity: 0; }
+.maquinaRoot :global(.bilhon-word-swap__current.is-entering) {
+  opacity: 0;
+  animation: bilhon-swap-in 120ms ease-out forwards;
+}
+@keyframes bilhon-swap-in {
+  to { opacity: 1; }
+}
+.maquinaRoot :global(.bilhon-word-swap.is-selected) :global(.bilhon-word-swap__current) {
+  color: var(--bilhon-accent-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  animation: bilhon-swap-flash 200ms ease-out;
+}
+@keyframes bilhon-swap-flash {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 1; }
+}
+.maquinaRoot
+  :global(.bilhon-word-swap.is-selected.flash-done)
+  :global(.bilhon-word-swap__current) {
+  text-decoration: none;
+  transition: text-decoration 280ms;
+}
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i4-modelo"]) { min-width: 9ch; }
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i4-niche"]) { min-width: 18ch; }
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i5-niche"]) { min-width: 26ch; }
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i6-tipo"]) { min-width: 12ch; }
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i6-niche"]) { min-width: 10ch; }
+.maquinaRoot :global(.bilhon-word-swap[data-swap-key="i3-niche"]) { min-width: 18ch; }
+
+/* Linha hero/estrela. */
+.maquinaRoot :global(.bilhon-star-line) {
+  color: var(--bilhon-accent-hero);
+  font-style: italic;
+}
+.maquinaRoot :global(.bilhon-star-line.is-revealing) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  animation: bilhon-star-underline-fade 1700ms ease-out forwards;
+}
+@keyframes bilhon-star-underline-fade {
+  0% { text-decoration-color: var(--bilhon-accent-hero); }
+  88% { text-decoration-color: var(--bilhon-accent-hero); }
+  100% { text-decoration-color: transparent; }
+}
+.maquinaRoot :global(.bilhon-star-secondary) {
+  color: var(--bilhon-accent-hero);
+  font-weight: 500;
+}
+.maquinaRoot :global(.bilhon-transition-line) {
+  color: var(--bilhon-muted);
+  font-style: normal;
+}
+
+/* Caption das pecas. */
+.maquinaRoot :global(.bilhon-piece-caption) {
+  font-family: var(--maquina-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 0.75rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Override Bilhon do layout (sobrescreve geometria Webflow). */
+.maquinaRoot :global(.maquina-5pecas) {
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.animation-wrapper) {
+  width: 100%;
+  height: auto;
+  background: transparent;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.top-animation) {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  padding-bottom: 0;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.track-line) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.icon-hero) {
+  width: 52px;
+  height: 52px;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.icon-hero.center) {
+  width: 56px;
+  height: 56px;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.v-line) {
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  width: 2px;
+  margin-top: 8px;
+  background-color: rgba(255, 255, 255, 0.14);
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.top-animation)::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 0;
+  height: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+  z-index: 5;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.bottom-animation) {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  width: 100%;
+  position: relative;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper) {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
+  width: auto;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back) {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: auto;
+  opacity: 0.55;
+  max-width: none;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back.left) {
+  margin-left: 0;
+  margin-right: 0;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.center) {
+  z-index: 5;
+  position: relative;
+  flex: 1.25 1 0;
+  max-width: none;
+  opacity: 1;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.middle-animation) {
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  height: 110px;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.icon-hero-outlined) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.middle-animation)::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.22);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.v-line.long) {
+  height: 55px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.22);
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back),
+.maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back.left) {
+  display: block;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.red),
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.green),
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.blue),
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.purple),
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.white) {
+  display: block;
+}
+
+/* Luz correndo na trilha (moving-line). */
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line) {
+  opacity: 0;
+  animation: bilhon-light-run 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes bilhon-light-run {
+  0% { transform: translateY(-100%); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateY(0%); opacity: 0; }
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.red) {
+  animation-duration: 2.2s;
+  animation-delay: 0s;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.green) {
+  animation-duration: 2.5s;
+  animation-delay: -0.5s;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.white) {
+  animation-duration: 2.3s;
+  animation-delay: -1s;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.purple) {
+  animation-duration: 2.6s;
+  animation-delay: -1.5s;
+}
+.maquinaRoot :global(.maquina-5pecas) :global(.moving-line.blue) {
+  animation-duration: 2.4s;
+  animation-delay: -2s;
+}
+
+/* Responsivo: esconde laterais, central vira 100%. */
+@media (max-width: 480px) {
+  .maquinaRoot :global(.bilhon-piece-caption) {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    margin-top: 0.5rem;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.icon-hero) {
+    width: 40px;
+    height: 40px;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.icon-hero.center) {
+    width: 46px;
+    height: 46px;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.v-line) {
+    height: 40px;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.top-animation) {
+    gap: 2px;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back),
+  .maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.back.left) {
+    display: none;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.terminal-wrapper.center) {
+    max-width: 100%;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]),
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.code-sample),
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.code-snippet),
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.command-result),
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-code]) :global(.xs-mono-text) {
+    font-size: 10px;
+    line-height: 1.55;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global([data-bilhon-tab]) {
+    font-size: 9px;
+  }
+  .maquinaRoot :global(.bilhon-word-swap) {
+    min-width: auto;
+  }
+}
+
+/* Reduced-motion: zera animacoes (snapshot estatico). */
+@media (prefers-reduced-motion: reduce) {
+  .maquinaRoot :global([data-bilhon-tab]),
+  .maquinaRoot :global([data-bilhon-code]) {
+    transition: none;
+    transform: none;
+  }
+  .maquinaRoot :global(.bilhon-cursor) {
+    animation: none;
+    opacity: 0;
+  }
+  .maquinaRoot :global(.maquina-5pecas) :global(.moving-line) {
+    animation: none;
+  }
+  .maquinaRoot :global(.bilhon-piece-caption) {
+    transition: none;
+    animation: none;
+  }
+  .maquinaRoot :global(.bilhon-word-swap__current) {
+    transition: none;
+    animation: none;
+  }
+  .maquinaRoot :global(.bilhon-star-line.is-revealing) {
+    animation: none;
+    text-decoration: none;
+  }
+}

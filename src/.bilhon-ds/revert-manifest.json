@@ -1,0 +1,24 @@
+{
+  "project": "vite_react_shadcn_ts",
+  "target": "shadcn-hsl",
+  "default": "sun",
+  "dark": "bos",
+  "forceDark": true,
+  "created": [
+    "src\\bilhon-ds.tokens.css"
+  ],
+  "injected": [
+    {
+      "file": "src/main.tsx",
+      "line": "import './bilhon-ds.tokens.css'; // @bilhon/ds re-skin — remover esta linha reverte"
+    },
+    {
+      "file": "src/main.tsx",
+      "line": "document.documentElement.classList.add('dark'); document.documentElement.setAttribute('data-theme', 'bos'); // @bilhon/ds force-dark — remover esta linha reverte"
+    }
+  ],
+  "revert": [
+    "remover a(s) linha(s) marcadas com '@bilhon/ds' (import re-skin + force-dark)",
+    "apagar os arquivos em 'created'"
+  ]
+}

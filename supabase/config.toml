@@ -1,0 +1,19 @@
+project_id = "auytmefqnuzbktyzcled"
+
+[functions.social_postforme-proxy]
+verify_jwt = false
+
+[functions.postforme-proxy]
+verify_jwt = false
+
+[functions.social_veo-generate]
+verify_jwt = false
+
+[functions.veo-generate]
+verify_jwt = false
+
+[functions.social_higgsfield-proxy]
+verify_jwt = false
+
+[functions.higgsfield-proxy]
+verify_jwt = false

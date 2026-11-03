@@ -1,0 +1,186 @@
+/* Bilhon Light — Arkom Ouro. Tema ÚNICO light (shadcn HSL). Override forçado
+   em :root e .dark. Creme #FAFAF7 + acento ÚNICO ouro bronze #B9915B + navy de
+   apoio. Reverter = git. Verde/vermelho/âmbar preservados (semântica funcional). */
+
+:root,
+.dark,
+:root.light,
+:root.dark,
+[data-theme],
+[data-product] {
+  --radius: 14px !important;
+
+  --background: 60 23% 97% !important;            /* #FAFAF7 creme */
+  --foreground: 0 0% 10% !important;              /* quase-preto */
+
+  --card: 0 0% 100% !important;
+  --card-foreground: 0 0% 10% !important;
+
+  --popover: 0 0% 100% !important;
+  --popover-foreground: 0 0% 10% !important;
+
+  --muted: 60 11% 93% !important;
+  --muted-foreground: 60 2% 39% !important;
+
+  --primary: 34 40% 54% !important;               /* #B9915B ouro */
+  --primary-foreground: 0 0% 10% !important;
+
+  --secondary: 60 11% 93% !important;
+  --secondary-foreground: 0 0% 10% !important;
+
+  --accent: 42 87% 91% !important;                /* tinta ouro suave (hovers) */
+  --accent-foreground: 46 80% 30% !important;
+
+  --destructive: 0 72% 51% !important;
+  --destructive-foreground: 0 0% 100% !important;
+
+  --border: 60 8% 88% !important;
+  --input: 60 8% 88% !important;
+  --ring: 34 40% 54% !important;
+
+  --sidebar-background: 0 0% 100% !important;
+  --sidebar-foreground: 0 0% 10% !important;
+  --sidebar-primary: 34 40% 54% !important;
+  --sidebar-primary-foreground: 0 0% 10% !important;
+  --sidebar-accent: 60 11% 93% !important;
+  --sidebar-accent-foreground: 46 80% 30% !important;
+  --sidebar-border: 60 8% 88% !important;
+  --sidebar-ring: 34 40% 54% !important;
+
+  /* Semântica funcional preservada (sucesso/alerta/perigo). */
+  --success: 152 58% 40% !important;
+  --warning: 38 92% 48% !important;
+  --danger: 0 72% 51% !important;
+
+  /* ===================== sistema --bl-* (login + efeitos) ===================== */
+  --bl-bg-0:          #ffffff !important;
+  --bl-bg-1:          #FAFAF7 !important;
+  --bl-bg-2:          #F4F2EC !important;
+  --bl-bg-primary:    #FAFAF7 !important;
+  --bl-bg-surface-alt:#F4F2EC !important;
+  --bl-bg-card-hover: #F7F5EF !important;
+  --bl-text-primary:  #1a1a1a !important;
+  --bl-text-secondary:#4a4a4a !important;
+  --bl-text-dim:      #6b6b6b !important;
+  /* acento ouro (dirige glows/gradientes/.text-gradient-bilhon) */
+  --bl-violet:        #B9915B !important;
+  --bl-purple:        #B9915B !important;
+  --bl-accent:        #B9915B !important;
+  --bl-accent-dim:    rgba(185, 145, 91, 0.12) !important;
+  --bl-accent-glow:   rgba(185, 145, 91, 0.18) !important;
+  --bl-accent-rgb:    185, 145, 91 !important;
+  --bl-border-hover:  rgba(185, 145, 91, 0.35) !important;
+  --bl-border-accent: rgba(185, 145, 91, 0.25) !important;
+  --bl-shadow-glow-lg:0 6px 20px rgba(185, 145, 91, 0.10) !important;
+  /* fontes Arkom no namespace --bl-* */
+  --bl-font-sans:    'DM Sans', ui-sans-serif, system-ui, sans-serif !important;
+  --bl-font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif !important;
+  --bl-font-mono:    'DM Mono', ui-monospace, monospace !important;
+}
+
+/* Base tipográfica: corpo em DM Sans, títulos em Manrope com tracking apertado. */
+html, body, button, input, select, textarea {
+  font-family: 'DM Sans', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6, .eyebrow, .text-h1, .text-h2, .text-h3, .font-heading {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 700;
+}
+
+/* Superfícies base — mata qualquer fundo dark herdado. */
+html, body, #root {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Raio consistente em botões, inputs, cards, badges e dropdowns. */
+.rounded-2xl, .rounded-xl, .rounded-lg { border-radius: var(--radius) !important; }
+
+/* ── Repaint da marca antiga (laranja/amber/yellow + violeta/roxo/fúcsia) → ouro ──
+   Cobre resíduos do template laranja E do rebrand violeta. Cores funcionais
+   (verde/vermelho/azul/sky/indigo/teal/emerald) NÃO são tocadas — servem a
+   status, gráficos e colunas de kanban. */
+[class*="bg-orange-"], [class*="bg-amber-"], [class*="bg-yellow-"],
+[class*="bg-violet-"], [class*="bg-purple-"], [class*="bg-fuchsia-"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+[class*="text-orange-"], [class*="text-amber-"], [class*="text-yellow-"],
+[class*="text-violet-"], [class*="text-purple-"], [class*="text-fuchsia-"] { color: hsl(var(--primary)) !important; }
+[class*="border-orange-"], [class*="border-amber-"], [class*="border-yellow-"],
+[class*="border-violet-"], [class*="border-purple-"], [class*="border-fuchsia-"] { border-color: hsl(var(--border)) !important; }
+[class*="shadow-orange-"], [class*="shadow-amber-"], [class*="shadow-yellow-"],
+[class*="shadow-violet-"], [class*="shadow-purple-"], [class*="shadow-fuchsia-"] { box-shadow: 0 6px 20px -6px hsl(var(--primary) / 0.25) !important; }
+[class*="from-orange-"], [class*="from-amber-"], [class*="from-yellow-"],
+[class*="from-violet-"], [class*="from-purple-"], [class*="from-fuchsia-"] {
+  --tw-gradient-from: hsl(var(--primary)) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: hsl(var(--primary) / 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[class*="to-orange-"], [class*="to-amber-"], [class*="to-yellow-"],
+[class*="to-violet-"], [class*="to-purple-"], [class*="to-fuchsia-"] { --tw-gradient-to: hsl(var(--primary)) var(--tw-gradient-to-position) !important; }
+[class*="via-orange-"], [class*="via-amber-"], [class*="via-yellow-"],
+[class*="via-violet-"], [class*="via-purple-"], [class*="via-fuchsia-"] { --tw-gradient-via: hsl(var(--primary)) !important; }
+
+/* Botão gradient (laranja↔amber / violeta) → ouro sólido */
+[class*="from-orange-"][class*="to-amber-"],
+[class*="from-amber-"][class*="to-orange-"],
+[class*="from-yellow-"][class*="to-orange-"],
+[class*="from-violet-"][class*="to-purple-"],
+[class*="from-purple-"][class*="to-violet-"] {
+  background-image: none !important;
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Badge/chip PREENCHIDO (bg + text da mesma família repintada): o bg vira ouro
+   sólido e a regra text-* também vira ouro → texto ouro sobre ouro (invisível).
+   Aqui forçamos texto escuro (primary-foreground) para restaurar a legibilidade.
+   Especificidade (0,2,0) vence a regra text-* (0,1,0). */
+[class*="bg-orange-"][class*="text-orange-"],
+[class*="bg-amber-"][class*="text-amber-"],
+[class*="bg-yellow-"][class*="text-yellow-"],
+[class*="bg-violet-"][class*="text-violet-"],
+[class*="bg-purple-"][class*="text-purple-"],
+[class*="bg-fuchsia-"][class*="text-fuchsia-"] {
+  color: hsl(var(--primary-foreground)) !important;
+  -webkit-text-fill-color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Texto com bg-clip gradient → ouro sólido */
+.bg-clip-text.text-transparent,
+[class*="bg-clip-text"].text-transparent {
+  -webkit-text-fill-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary)) !important;
+  background-image: none !important;
+}
+
+/* ── Correção do hover do botão canônico (.btn-bilhon / .btn-primary) ──
+   Bug pré-existente do @bilhon/ds: hover aplica background-clip:text +
+   text-fill:transparent, recorta o fundo no formato do texto e o botão "some".
+   Restaura hover sólido escuro com texto claro. */
+.btn-bilhon:hover,
+.btn-primary:hover,
+.btn-accent:hover {
+  background-color: #2b2b2b !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: hsl(60 23% 97%) !important;
+  color: hsl(60 23% 97%) !important;
+  border-color: #3a3a3a !important;
+  box-shadow: 0 6px 20px rgba(185, 145, 91, 0.14) !important;
+}
+
+/* ── Safety net: texto branco só é permitido sobre fundo colorido ── */
+.text-white:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]):not([class*="via-"]):not([style*="background"]) {
+  color: hsl(var(--foreground)) !important;
+}
+.bg-white.text-white,
+[class*="bg-white"].text-white {
+  color: hsl(var(--foreground)) !important;
+}
+[class^="text-white/"]:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]):not([class*="via-"]) {
+  color: hsl(var(--muted-foreground)) !important;
+}

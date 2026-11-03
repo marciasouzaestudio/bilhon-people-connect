@@ -1,0 +1,19 @@
+{
+  "_comment": "Copie para .mcp.json e preencha com suas chaves. .mcp.json é gitignored — NUNCA commite chaves reais. Estes servidores MCP são apenas ferramentas de desenvolvimento local; o app em produção usa as chaves que cada usuário informa no /setup (via headers das edge functions).",
+  "mcpServers": {
+    "blotato": {
+      "type": "http",
+      "url": "https://mcp.blotato.com/mcp",
+      "headers": {
+        "blotato-api-key": "SUA_CHAVE_BLOTATO_AQUI"
+      }
+    },
+    "firecrawl-mcp": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "SUA_CHAVE_FIRECRAWL_AQUI"
+      }
+    }
+  }
+}
