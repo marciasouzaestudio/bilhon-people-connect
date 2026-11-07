@@ -343,8 +343,8 @@ export function useGenerateVisuals() {
 export function useCheckVisuals() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (calendarId: string) =>
-      api.runAutopilot("check_visuals", { calendar_id: calendarId }) as Promise<CheckVisualsResult>,
+    mutationFn: async (calendarId: string) =>
+      (await api.runAutopilot("check_visuals", { calendar_id: calendarId })) as unknown as CheckVisualsResult,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["autopilot"] });
     },
@@ -354,8 +354,8 @@ export function useCheckVisuals() {
 export function useScheduleCalendar() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (calendarId: string) =>
-      api.runAutopilot("schedule", { calendar_id: calendarId }) as Promise<ScheduleResult>,
+    mutationFn: async (calendarId: string) =>
+      (await api.runAutopilot("schedule", { calendar_id: calendarId })) as unknown as ScheduleResult,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["autopilot"] });
     },
@@ -376,8 +376,8 @@ export function useConfirmCalendar() {
 export function useCurateCalendar() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (calendarId: string) =>
-      api.runAutopilot("curate", { calendar_id: calendarId }) as Promise<CurateResult>,
+    mutationFn: async (calendarId: string) =>
+      (await api.runAutopilot("curate", { calendar_id: calendarId })) as unknown as CurateResult,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["autopilot"] });
     },
