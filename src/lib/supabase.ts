@@ -1,6 +1,6 @@
 // Re-export the Lovable-managed Supabase client
 // Lovable injects VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY automatically
-export { supabase } from "@/integrations/supabase/client";
+export { supabase } from "@/lib/app-db-client";
 
 // Fallback embutido: as creds do projeto são públicas (anon key, protegida por RLS)
 // e devem funcionar mesmo se o build publicado não injetar as envs por algum motivo.

@@ -2,7 +2,7 @@
  * Gallery Service — persists creations in Supabase `creations` table
  */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { requireOrgId } from "@/lib/org";
 
 /**

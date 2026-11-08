@@ -10,7 +10,7 @@
  * (policy `social_media_insert_own`). Todo path daqui respeita isso.
  */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 
 /** O bucket não tem `file_size_limit` no servidor — o teto é imposto aqui. */
 export const LIMITE_IMAGEM_MB = 25;

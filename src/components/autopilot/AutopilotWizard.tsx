@@ -27,7 +27,7 @@ import { usePfmAccounts } from "@/hooks/use-social";
 import { useSaveAutopilotConfig } from "@/hooks/use-autopilot";
 import { useApp } from "@/contexts/AppContext";
 import type { AutopilotConfig, AutopilotVisualFormat, AutopilotRecurrence, AutopilotTheme, Platform } from "@/types";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { AlertCircle } from "lucide-react";

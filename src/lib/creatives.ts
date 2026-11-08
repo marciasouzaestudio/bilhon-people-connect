@@ -9,8 +9,8 @@
  *  - CRUD via Supabase (schema app_social, RLS por org)
  */
 
-import { supabase } from "@/integrations/supabase/client";
-import type { Database, Json } from "@/integrations/supabase/types";
+import { supabase } from "@/lib/app-db-client";
+import type { Database, Json } from "@/lib/app-db-types";
 import { requireOrgId } from "@/lib/org";
 import { brandTextProfile, type BrandProfile } from "@/lib/brand";
 import type { CreativeAngle, CreativeBrandForAI, OfferForAI } from "@/lib/api/creatives";
@@ -562,7 +562,7 @@ export async function updateCreative(id: string, patch: Partial<Pick<Creative, "
   if (patch.imagePrompt !== undefined) row.image_prompt = patch.imagePrompt;
   if (patch.status !== undefined) row.status = patch.status;
   if (patch.metadata !== undefined) row.metadata = patch.metadata;
-  const { error } = await supabase.from("creatives").update(row).eq("id", id);
+  const { error } = await supabase.from("creatives").update(row as never).eq("id", id);
   if (error) throw error;
 }
 

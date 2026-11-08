@@ -6,7 +6,7 @@
  * "VITE_SUPABASE_URL não configurada".
  */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { userStorage } from "@/lib/storage";
 import type { AppConfig } from "@/types";
 

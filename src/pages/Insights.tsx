@@ -25,7 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { useQuery } from "@tanstack/react-query";
 import { PLATFORMS } from "@/lib/platforms";
 import type { Platform } from "@/types";

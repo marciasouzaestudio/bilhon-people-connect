@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import type { AppConfig, SocialAccount, ScheduledPost } from "@/types";
 import { userStorage } from "@/lib/storage";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { getPfmUserKey, setPfmUserKey } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 import { requireOrgId } from "@/lib/org";

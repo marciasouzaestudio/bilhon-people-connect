@@ -5,7 +5,7 @@
  * set explicitly (setPfmUserKey) or read from the user's saved config.
  */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { getSupabaseUrl, getSavedConfig, baseHeaders } from "./_shared";
 
 // Exported for direct use (e.g. Bluesky auth)

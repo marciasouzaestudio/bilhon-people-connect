@@ -40,7 +40,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useApp } from "@/contexts/AppContext";
 import { usePfmAccounts } from "@/hooks/use-social";
 import { PostPerformance } from "@/components/analytics/PostPerformance";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import * as api from "@/lib/api";
 import type { ProfileAnalytics } from "@/lib/api";
 import { PLATFORMS } from "@/lib/platforms";

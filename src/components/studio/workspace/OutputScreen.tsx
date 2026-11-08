@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePfmAccounts, usePfmCreatePost } from "@/hooks/use-social";
 import { pfmCreateUploadUrl } from "@/lib/api";

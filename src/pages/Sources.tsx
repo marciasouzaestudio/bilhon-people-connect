@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { extractSource } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import type { ContentSource } from "@/types";
 import { requireOrgId } from "@/lib/org";
 

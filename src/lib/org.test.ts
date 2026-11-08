@@ -20,7 +20,7 @@ const h = vi.hoisted(() => ({
   rpc: vi.fn(),
 }));
 
-vi.mock("@/integrations/supabase/client", () => {
+vi.mock("@/lib/app-db-client", () => {
   h.getSession.mockImplementation(async () => ({
     data: { session: h.userId ? { user: { id: h.userId } } : null },
   }));

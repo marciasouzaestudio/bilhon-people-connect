@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 
 /**
  * Ponte de tenant do repoint (banco CENTRAL). Resolve o org_id do usuário atual:

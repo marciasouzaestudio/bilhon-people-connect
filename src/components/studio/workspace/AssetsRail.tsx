@@ -3,7 +3,7 @@ import { Type, Image as ImageIcon, Square, Upload, Search, Loader2 } from "lucid
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/app-db-client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useBrands } from "@/hooks/use-brands";
 import { searchStockImages, type StockImage } from "@/lib/api";
