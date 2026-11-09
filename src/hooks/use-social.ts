@@ -10,7 +10,7 @@ export function useGenerateContent() {
   });
 }
 
-// ─── Post for Me (accounts + posting + analytics) ───────────────
+// ─── Zernio (accounts + posting + analytics) ───────────────
 
 export function usePfmAccounts(platform?: string) {
   const { isConfigured } = useApp();

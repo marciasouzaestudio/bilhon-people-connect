@@ -9,7 +9,7 @@ export interface StepConfig {
 }
 
 export const STEPS: StepConfig[] = [
-  { id: 1, title: "Post for Me",   subtitle: "Publicação multi-plataforma", icon: <Link2 className="h-5 w-5" />,     required: true  },
+  { id: 1, title: "Zernio",        subtitle: "Publicação multi-plataforma", icon: <Link2 className="h-5 w-5" />,     required: true  },
   { id: 2, title: "Gemini Omni",  subtitle: "Geração de vídeo IA",         icon: <Film className="h-5 w-5" />,      required: false },
   { id: 3, title: "Analytics",     subtitle: "Métricas reais",              icon: <BarChart3 className="h-5 w-5" />, required: false },
   { id: 4, title: "Firecrawl",    subtitle: "Pesquisa e extração de conteúdo", icon: <Search className="h-5 w-5" />, required: false },

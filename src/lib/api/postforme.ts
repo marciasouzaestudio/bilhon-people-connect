@@ -1,8 +1,10 @@
 /**
- * Post for Me (PFM) — unified accounts + posting + analytics.
+ * Zernio — unified accounts + posting + analytics.
  *
- * All calls go through the postforme-proxy Edge Function. The PFM key can be
- * set explicitly (setPfmUserKey) or read from the user's saved config.
+ * Camada de adaptação de publicação: mantém a superfície `pfm*` usada pelos
+ * call-sites, mas agora fala com o zernio-proxy Edge Function (Zernio API).
+ * A chave pode ser definida explicitamente (setPfmUserKey) ou lida da config
+ * salva do usuário.
  */
 
 import { supabase } from "@/lib/app-db-client";
@@ -16,12 +18,12 @@ export async function callPfmDirect(
   return callPfm(tool, args);
 }
 
-// PFM key can be passed from user config
+// Chave do Zernio pode vir da config do usuário
 let _pfmUserKey: string | undefined;
 export function setPfmUserKey(key: string | undefined) { _pfmUserKey = key; }
 export function getPfmUserKey() { return _pfmUserKey; }
 
-const PFM_FUNCTION = "social_postforme-proxy";
+const PFM_FUNCTION = "zernio-proxy";
 
 async function pfmHeaders(): Promise<Record<string, string>> {
   const headers = baseHeaders();
@@ -60,7 +62,7 @@ async function callPfm(
   return res.json();
 }
 
-/** Validate PFM key by listing accounts */
+/** Valida a chave do Zernio listando contas */
 export async function validatePfmKey(key: string): Promise<{ valid: boolean; error?: string }> {
   try {
     const url = `${getSupabaseUrl()}/functions/v1/${PFM_FUNCTION}`;
@@ -95,23 +97,25 @@ export async function pfmListAccounts(platform?: string): Promise<PfmAccount[]> 
   const args: Record<string, unknown> = {};
   if (platform) args.platform = platform;
   const result = await callPfm("pfm_list_accounts", args) as any;
-  return (result.data || [])
+  const items: any[] = result?.data || result?.accounts || (Array.isArray(result) ? result : []);
+  return items
     .filter((a: any) => a.status !== "disconnected")  // ignorar contas desconectadas
     .map((a: any) => ({
-      id: a.id,
+      id: String(a.id || a._id),
       platform: a.platform === "x" ? "twitter" : a.platform,
-      username: a.username || a.platform_username || a.name || a.platform_name || (a.platform === "youtube" ? "YouTube" : ""),
-      name: a.name || a.platform_name || a.username || a.platform_username || (a.platform === "youtube" ? "Canal YouTube" : ""),
-      picture: a.profile_photo_url || a.picture || a.platform_profile_picture_url || "",
-      status: a.status || "active",
+      username: a.username || a.platform_username || a.handle || a.name || a.platform_name || (a.platform === "youtube" ? "YouTube" : ""),
+      name: a.name || a.platform_name || a.username || a.handle || (a.platform === "youtube" ? "Canal YouTube" : ""),
+      picture: a.profilePicture || a.profile_picture || a.profile_photo_url || a.picture || a.avatar || "",
+      status: a.status || "connected",
     }));
 }
 
 export async function pfmAuthUrl(platform: string, connectionType?: string): Promise<string> {
-  const args: Record<string, unknown> = { platform: platform === "twitter" ? "x" : platform };
+  const args: Record<string, unknown> = { platform: platform === "twitter" ? "twitter" : platform };
   if (connectionType) args.connection_type = connectionType;
+  args.redirect_url = window.location.origin + "/accounts";
   const result = await callPfm("pfm_auth_url", args) as any;
-  return result.url || "";
+  return result.url || result.authUrl || "";
 }
 
 export async function pfmDisconnectAccount(id: string): Promise<void> {
@@ -152,9 +156,9 @@ export async function pfmAccountFeed(socialAccountId: string, limit = 20, cursor
 }
 
 // ── Feed normalizado (engajamento por post) ──────────────────────
-// O pfm_account_feed (expand=metrics) traz métricas por plataforma com
-// formatos diferentes (oneOf no OpenAPI). Normalizamos para um subconjunto
-// comum tolerante a campos ausentes — métricas variam por rede.
+// O feed de analytics traz métricas por plataforma com formatos diferentes.
+// Normalizamos para um subconjunto comum tolerante a campos ausentes —
+// métricas variam por rede.
 export interface PfmFeedMetrics {
   likes?: number;
   comments?: number;
@@ -179,7 +183,7 @@ function pfmNum(v: unknown): number | undefined {
   return typeof v === "number" && !Number.isNaN(v) ? v : undefined;
 }
 
-// media do PlatformPostDto é heterogêneo entre plataformas — procura a 1ª URL.
+// media heterogênea entre plataformas — procura a 1ª URL.
 function pfmPickThumb(media: unknown): string | undefined {
   const urls: string[] = [];
   const walk = (v: unknown) => {
@@ -191,11 +195,11 @@ function pfmPickThumb(media: unknown): string | undefined {
   return urls.find((u) => /\.(jpg|jpeg|png|webp|gif)/i.test(u)) || urls[0];
 }
 
-/** Normaliza a resposta do pfm_account_feed (expand=metrics) para a UI. */
+/** Normaliza a resposta do feed de analytics para a UI. */
 export function normalizePfmFeed(raw: any): { posts: PfmFeedPost[]; cursor?: string } {
   const items: any[] = Array.isArray(raw?.data) ? raw.data : Array.isArray(raw) ? raw : [];
   const posts: PfmFeedPost[] = items.map((p, i) => {
-    const m = (p?.metrics || {}) as Record<string, unknown>;
+    const m = (p?.metrics || p?.analytics || {}) as Record<string, unknown>;
     const metrics: PfmFeedMetrics = {
       likes: pfmNum(m.likes),
       comments: pfmNum(m.comments),
@@ -207,25 +211,31 @@ export function normalizePfmFeed(raw: any): { posts: PfmFeedPost[]; cursor?: str
     };
     const hasMetrics = Object.values(metrics).some((v) => v !== undefined);
     return {
-      id: String(p?.id ?? p?.platform_post_id ?? p?.social_post_id ?? `feed-${i}`),
-      postedAt: typeof p?.posted_at === "string" ? p.posted_at : undefined,
-      caption: typeof p?.caption === "string" ? p.caption : undefined,
-      platformUrl: typeof p?.platform_url === "string" ? p.platform_url : undefined,
-      thumbUrl: pfmPickThumb(p?.media),
+      id: String(p?.id ?? p?.postId ?? p?.platform_post_id ?? p?.social_post_id ?? `feed-${i}`),
+      postedAt: typeof p?.posted_at === "string" ? p.posted_at
+        : typeof p?.publishedAt === "string" ? p.publishedAt
+        : typeof p?.createdAt === "string" ? p.createdAt : undefined,
+      caption: typeof p?.caption === "string" ? p.caption
+        : typeof p?.content === "string" ? p.content : undefined,
+      platformUrl: typeof p?.platform_url === "string" ? p.platform_url
+        : typeof p?.platformUrl === "string" ? p.platformUrl : undefined,
+      thumbUrl: pfmPickThumb(p?.media ?? p?.mediaItems),
       metrics,
       hasMetrics,
     };
   });
-  return { posts, cursor: raw?.meta?.cursor };
+  return { posts, cursor: raw?.meta?.cursor ?? raw?.cursor };
 }
 
 // Media upload
-export async function pfmCreateUploadUrl(): Promise<{ media_url: string; upload_url: string }> {
-  const result = await callPfm("pfm_upload_url", {}) as any;
-  // PFM API may nest under .data or return flat
+export async function pfmCreateUploadUrl(
+  opts?: { filename?: string; contentType?: string; size?: number }
+): Promise<{ media_url: string; upload_url: string }> {
+  const result = await callPfm("pfm_upload_url", opts || {}) as any;
+  // resposta pode vir aninhada em .data ou plana
   const data = result?.data ?? result;
   if (!data?.media_url || !data?.upload_url) {
-    throw new Error("PFM upload URL response missing media_url or upload_url");
+    throw new Error("Resposta de upload sem media_url ou upload_url");
   }
   return { media_url: data.media_url, upload_url: data.upload_url };
 }

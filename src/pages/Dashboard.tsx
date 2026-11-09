@@ -90,7 +90,7 @@ export default function Dashboard() {
 
   const pendingItems = pendingConfig
     ? [
-        !pendingConfig.pfm     && "Post for Me (publicação multi-plataforma)",
+        !pendingConfig.pfm     && "Zernio (publicação multi-plataforma)",
         !pendingConfig.apify   && "Apify (analytics reais)",
       ].filter(Boolean)
     : [];

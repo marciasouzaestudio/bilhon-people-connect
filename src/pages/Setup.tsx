@@ -127,7 +127,7 @@ export default function Setup() {
       if (!r.valid) return setKeyStatus("pfm", "error", r.error || "Chave inválida");
       await persistPartial({ postformeApiKey: pfmKey.trim() });
       setKeyStatus("pfm", "valid");
-      toast({ title: "Post for Me conectado!" });
+      toast({ title: "Zernio conectado!" });
     } catch (e) {
       setKeyStatus("pfm", "error", e instanceof Error ? e.message : "Erro ao validar");
     }
@@ -201,7 +201,7 @@ export default function Setup() {
   // ── Concluir ──────────────────────────────────────────────
   const handleFinish = async () => {
     if (!isManageMode && !pfmKey.trim() && !config.postformeApiKey) {
-      toast({ title: "Post for Me é obrigatório", description: "Cole e valide sua chave antes de concluir.", variant: "destructive" });
+      toast({ title: "Zernio é obrigatório", description: "Cole e valide sua chave antes de concluir.", variant: "destructive" });
       return;
     }
     setIsSaving(true);
@@ -351,7 +351,7 @@ export default function Setup() {
             </Button>
             {!config.postformeApiKey && (
               <p className="text-xs text-muted-foreground text-center">
-                Configure a Post for Me abaixo para habilitar a conexão de redes.
+                Configure o Zernio abaixo para habilitar a conexão de redes.
               </p>
             )}
           </CardContent>
@@ -363,7 +363,7 @@ export default function Setup() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <CardTitle className="flex items-center gap-2 text-base">
-                  <Link2 className="h-5 w-5 text-primary" /> Post for Me — Publicação
+                  <Link2 className="h-5 w-5 text-primary" /> Zernio — Publicação
                   <Badge variant="destructive" className="text-[9px] px-1 py-0 h-4">obrigatório</Badge>
                 </CardTitle>
                 <CardDescription>
@@ -375,9 +375,9 @@ export default function Setup() {
           </CardHeader>
           <CardContent className="space-y-3">
             <SecretInput
-              id="pfm" label="Post for Me API Key" placeholder="pfm_live_xxxxxxxxxxxxx"
+              id="pfm" label="Zernio API Key" placeholder="Sua chave de API do Zernio"
               value={pfmKey} onChange={(v) => { setPfmKey(v); setKeyStatus("pfm", "idle"); }}
-              required hint="Obtenha em" link="https://app.postforme.dev/settings" linkLabel="app.postforme.dev/settings"
+              required hint="Obtenha em" link="https://zernio.com" linkLabel="zernio.com"
             />
             {errors.pfm && (
               <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 p-2 text-xs text-destructive">

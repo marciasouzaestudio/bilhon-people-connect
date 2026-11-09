@@ -105,7 +105,7 @@ export function PostPerformance() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-sm font-semibold">Desempenho por post — dados nativos da rede</h3>
-          <p className="text-xs text-muted-foreground">Métricas oficiais via Post for Me (sem scraping).</p>
+          <p className="text-xs text-muted-foreground">Métricas oficiais via Zernio (sem scraping).</p>
         </div>
         <Select value={accountId} onValueChange={setAccountId}>
           <SelectTrigger className="w-[220px]">

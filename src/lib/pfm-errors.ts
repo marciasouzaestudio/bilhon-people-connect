@@ -1,5 +1,5 @@
 /**
- * Helpers para tratar erros de autenticação do Post for Me de forma consistente
+ * Helpers para tratar erros de autenticação do Zernio de forma consistente
  * em toda a UI. O proxy devolve 401 com a string "Invalid or expired token"
  * quando a `x-pfm-api-key` salva no `user_configs` foi revogada/expirou.
  */
@@ -16,5 +16,5 @@ export function isPfmAuthError(err: unknown): boolean {
   return PFM_AUTH_HINTS.some((hint) => msg.includes(hint));
 }
 
-/** Rota canônica pra reconectar/atualizar a chave do Post for Me. */
+/** Rota canônica pra reconectar/atualizar a chave do Zernio. */
 export const PFM_RECONNECT_PATH = "/setup?manage=1";

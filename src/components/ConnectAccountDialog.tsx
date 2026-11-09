@@ -245,12 +245,12 @@ export function ConnectAccountDialog({ open, onOpenChange }: ConnectAccountDialo
     } catch (err) {
       const raw = err instanceof Error ? err.message : "";
       const netName = PLATFORMS[platform]?.name ?? platform;
-      // O Post for Me devolve "Social provider app credentials not found" quando a
+      // O Zernio devolve "Social provider app credentials not found" quando a
       // rede ainda não tem as credenciais de app configuradas na conta. Traduz para
       // algo acionável em vez do erro cru em inglês.
       const friendly = /credential|provider app|not configured|not found/i.test(raw)
-        ? `A conexão com ${netName} ainda não está habilitada na conta Post for Me. ` +
-          `Configure as credenciais do app dessa rede no painel do Post for Me (app.postforme.dev) antes de conectar.`
+        ? `A conexão com ${netName} ainda não está habilitada na conta Zernio. ` +
+          `Configure as credenciais do app dessa rede no painel do Zernio (zernio.com) antes de conectar.`
         : (raw || "Erro ao conectar. Tente novamente.");
       setError(friendly);
       setConnecting(null);

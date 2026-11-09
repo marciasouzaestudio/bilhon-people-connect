@@ -45,7 +45,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [loadedUserId, setLoadedUserId] = useState<string | null>(null);
   const { user, loading: authLoading } = useAuth();
 
-  // Post for Me é a integração core (publicação).
+  // Zernio é a integração core (publicação).
   const isConfigured = !!config.postformeApiKey;
   const onboardingCompleted = !!config.onboardingCompleted;
 
@@ -91,7 +91,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           brandName: data.brand_name || "Arkom Social",
           brandLogo: data.brand_logo_url || undefined,
           // Considera onboarding completo se a flag estiver marcada OU se a chave
-          // essencial (Post for Me) já existir — evita repedir credenciais a quem
+          // essencial (Zernio) já existir — evita repedir credenciais a quem
           // já configurou em sessão anterior.
           onboardingCompleted: !!(data.onboarding_completed || data.postforme_api_key),
         };

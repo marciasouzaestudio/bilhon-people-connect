@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { PFM_RECONNECT_PATH } from "@/lib/pfm-errors";
 
 /**
- * Estado vazio acionável quando o Post for Me devolve 401.
+ * Estado vazio acionável quando o Zernio devolve 401.
  * Substitui o banner cru "Invalid or expired token" por um CTA pra reconectar.
  */
 export function PfmAuthExpired({
-  title = "Sua chave do Post for Me expirou",
-  description = "A chave salva nas configurações foi revogada ou venceu. Gere uma nova em app.postforme.dev/settings e atualize aqui pra voltar a publicar e ver a agenda.",
+  title = "Sua chave do Zernio expirou",
+  description = "A chave salva nas configurações foi revogada ou venceu. Gere uma nova no painel do Zernio (zernio.com) e atualize aqui pra voltar a publicar e ver a agenda.",
   compact = false,
 }: {
   title?: string;
@@ -34,7 +34,7 @@ export function PfmAuthExpired({
       <Button asChild variant="outline" size="sm" className="mt-3">
         <Link to={PFM_RECONNECT_PATH}>
           <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
-          Reconectar Post for Me
+          Reconectar Zernio
         </Link>
       </Button>
     </div>

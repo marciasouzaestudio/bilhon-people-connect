@@ -1822,7 +1822,7 @@ export default function Analytics() {
         </>
       )}
 
-      {/* ── Desempenho nativo por post (Post for Me) ─────────── */}
+      {/* ── Desempenho nativo por post (Zernio) ─────────── */}
       {/* Independente do Apify: usa métricas oficiais da rede via PFM feed. */}
       <Card className="card-premium">
         <CardHeader>
@@ -1830,7 +1830,7 @@ export default function Analytics() {
             <BarChart3 className="h-4 w-4 text-primary" />
             Desempenho dos seus posts
           </CardTitle>
-          <CardDescription>Métricas oficiais da rede (Post for Me) — por conta conectada.</CardDescription>
+          <CardDescription>Métricas oficiais da rede (Zernio) — por conta conectada.</CardDescription>
         </CardHeader>
         <CardContent>
           <PostPerformance />

@@ -23,11 +23,11 @@ type ManageKeyDef = {
 const MANAGE_KEYS: ManageKeyDef[] = [
   {
     id: "postformeApiKey",
-    label: "Post for Me",
+    label: "Zernio",
     description: "Publicação multi-plataforma.",
-    placeholder: "pfm_live_xxxxxxxxxxxxx",
-    link: "https://app.postforme.dev/settings",
-    linkLabel: "app.postforme.dev",
+    placeholder: "Sua chave de API do Zernio",
+    link: "https://zernio.com",
+    linkLabel: "zernio.com",
     validate: async (v) => validatePfmKey(v),
   },
   {

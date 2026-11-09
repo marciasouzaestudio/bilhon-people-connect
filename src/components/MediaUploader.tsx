@@ -53,7 +53,7 @@ export function MediaUploader({
   );
 
   // Sobe o arquivo para o bucket `media` do Supabase (persistente, entra na
-  // galeria). O CDN do Post for Me é efêmero e serve só à publicação.
+  // galeria). O CDN do Zernio é efêmero e serve só à publicação.
   const uploadFile = useCallback(
     async (entry: UploadedFile) => {
       try {

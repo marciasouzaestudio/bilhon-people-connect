@@ -23,7 +23,7 @@ function isHttp(u?: string): boolean {
 }
 
 /**
- * Publicação direta no Post for Me — reutilizável por todas as abas do Studio.
+ * Publicação direta no Zernio — reutilizável por todas as abas do Studio.
  * Seleção de contas conectadas, legenda (com override por plataforma), publicar
  * agora ou agendar, e upload de mídia (data:/http) para o CDN do PFM.
  */
@@ -151,7 +151,7 @@ export function PublishPanel({
     <Card className="card-premium">
       <CardContent className="space-y-4 p-4">
         <div className="flex items-center gap-2 text-sm font-medium">
-          <Send className="h-4 w-4 text-primary" /> Publicar no Post for Me
+          <Send className="h-4 w-4 text-primary" /> Publicar no Zernio
         </div>
 
         {isLoading ? (

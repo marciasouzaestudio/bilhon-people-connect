@@ -662,7 +662,7 @@ export function AutopilotWizard({ existingConfig, onSaved, onCancel }: Props) {
                 </p>
                 {[
                   { label: "Firecrawl (pesquisa)", ok: hasFirecrawlKey, required: themes.some((t) => (t.subject || "").trim()) },
-                  { label: "Post for Me (publicação)", ok: hasPfmKey, required: true },
+                  { label: "Zernio (publicação)", ok: hasPfmKey, required: true },
                   { label: "Imagens IA (OpenAI)", ok: true, required: false },
                   { label: "Plataformas selecionadas", ok: platforms.length > 0, required: true },
                   { label: "Contas conectadas", ok: accountIds.length > 0, required: true },

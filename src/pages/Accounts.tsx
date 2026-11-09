@@ -96,7 +96,7 @@ export default function Accounts() {
       {(pfmAccountsQuery.data?.length ?? 0) > 0 && (
         <div>
           <h2 className="mb-4 text-lg font-semibold text-green-600">
-            Conectadas via Post for Me ({pfmAccountsQuery.data!.length})
+            Conectadas via Zernio ({pfmAccountsQuery.data!.length})
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {pfmAccountsQuery.data!.map((account) => {
@@ -137,7 +137,7 @@ export default function Accounts() {
         </div>
       )}
 
-      {/* Contas via Post for Me (seção acima) */}
+      {/* Contas via Zernio (seção acima) */}
 
       {/* All Platforms */}
       <div>
