@@ -127,7 +127,6 @@ const ROUTES: Record<string, RouteConfig> = {
       if (a.__profileId) params.set("profileId", String(a.__profileId));
       if (a.redirect_url_override) params.set("redirect_url", a.redirect_url_override);
       if (a.redirect_url) params.set("redirect_url", a.redirect_url);
-      params.set("language", "pt-BR");
       return params.toString();
     },
   },
