@@ -8,7 +8,7 @@
  */
 
 import { supabase } from "@/lib/app-db-client";
-import { getSupabaseUrl, getSavedConfig, baseHeaders } from "./_shared";
+import { getSavedConfig } from "./_shared";
 
 // Exported for direct use (e.g. Bluesky auth)
 export async function callPfmDirect(
@@ -24,9 +24,12 @@ export function setPfmUserKey(key: string | undefined) { _pfmUserKey = key; }
 export function getPfmUserKey() { return _pfmUserKey; }
 
 const PFM_FUNCTION = "zernio-proxy";
+// A ponte do Zernio vive no Lovable Cloud, separada do serviço de contas original.
+const ZERNIO_BRIDGE_URL = "https://vksfugcrvvjedvkzsfpa.supabase.co";
+const ZERNIO_BRIDGE_KEY = "sb_publishable_HREABA_CxHsqc1EWzQI6aw_FYqkCRRG";
 
 async function pfmHeaders(): Promise<Record<string, string>> {
-  const headers = baseHeaders();
+  const headers: Record<string, string> = { "Content-Type": "application/json", apikey: ZERNIO_BRIDGE_KEY };
   const { data } = await supabase.auth.getSession();
   const accessToken = data.session?.access_token;
   if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
@@ -42,7 +45,7 @@ async function callPfm(
   tool: string,
   args: Record<string, unknown> = {}
 ): Promise<unknown> {
-  const url = `${getSupabaseUrl()}/functions/v1/${PFM_FUNCTION}`;
+  const url = `${ZERNIO_BRIDGE_URL}/functions/v1/${PFM_FUNCTION}`;
   const headers = await pfmHeaders();
   const apiKey = getPfmKey();
 
@@ -65,7 +68,7 @@ async function callPfm(
 /** Valida a chave do Zernio listando contas */
 export async function validatePfmKey(key: string): Promise<{ valid: boolean; error?: string }> {
   try {
-    const url = `${getSupabaseUrl()}/functions/v1/${PFM_FUNCTION}`;
+    const url = `${ZERNIO_BRIDGE_URL}/functions/v1/${PFM_FUNCTION}`;
     const headers = await pfmHeaders();
     const res = await fetch(url, {
       method: "POST",
